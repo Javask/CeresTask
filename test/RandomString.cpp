@@ -14,8 +14,3 @@ auto generateRandomString(const std::size_t len) -> std::string {
   std::generate_n(begin(result), len, [&]() { return chars[dist(rng)]; });
   return result;
 }
-
-TEST_CASE("Generated Random String", "[utility]") {
-  auto str = generateRandomString(8);
-  REQUIRE(str.size() == 8);
-}
