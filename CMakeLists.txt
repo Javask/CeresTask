@@ -3,8 +3,11 @@ cmake_minimum_required(VERSION 3.22)
 project(CeresTask VERSION 1.0.0 LANGUAGES CXX)
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake)
 
-
-CPMAddPackage("gh:Javask/CeresLog@1.0.0-alpha1")
+CPMAddPackage(NAME CeresLog 
+              VERSION 1.0.0-alpha1
+              GITHUB_REPOSITORY Javask/CeresLog
+              OPTIONS
+                "CERESLOG_BUILD_TESTS OFF")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DCERESTASK_DEBUG)
