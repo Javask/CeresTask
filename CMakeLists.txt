@@ -4,7 +4,7 @@ project(CeresTask VERSION 1.0.0 LANGUAGES CXX)
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake)
 
 CPMAddPackage(NAME CeresLog 
-              VERSION 1.0.0-alpha1
+              VERSION 1.0.0-alpha2
               GITHUB_REPOSITORY Javask/CeresLog
               OPTIONS
                 "CERESLOG_BUILD_TESTS OFF")
