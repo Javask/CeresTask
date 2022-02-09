@@ -29,6 +29,20 @@ class TaskSingleton : public Singleton<TaskSingleton> {
   /// <returns>Old State to be inspected</returns>
   TaskState replaceState(TaskState newState);
 
+  void notifyTaskHasRun(TaskID hasRun, TaskID toNotify);
+
+  void setRunnable(TaskID id, bool runnable);
+
+  bool setWaitingOn(TaskID waitingTask, TaskID toWaitOn);
+
+  bool checkHasRun(TaskID id);
+
+  bool checkIsReady(TaskID id);
+
+  bool checkIsWaiting(TaskID id);
+
+  bool waitOnTaskCompletion(TaskID id, size_t timeout);
+
  private:
   std::shared_mutex stateMutex;
   TaskState state;

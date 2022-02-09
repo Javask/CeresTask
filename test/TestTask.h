@@ -1,14 +1,19 @@
 #pragma once
 #include "../include/CeresTask/Task.h"
 #include <string>
+#include <mutex>
 
 class TestTask : public Task {
  public:
+  TestTask();
   TestTask(std::string name);
   virtual ~TestTask() = default;
-  void run() override;
-  const std::string& getName() const;
+
+  bool run(TaskID id) override;
+  void reset();
+  bool hasRan();
 
  private:
-  const std::string name;
+  std::mutex taskMutex;
+  bool ran = false;
 };

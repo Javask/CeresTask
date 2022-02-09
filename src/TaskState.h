@@ -3,7 +3,7 @@
 #include <mutex>
 #include <vector>
 
-#include "../include/CeresTask/Task.h"
+#include "RegisteredTask.h"
 
 struct TaskState {
   TaskState& operator=(const TaskState&) = delete;
@@ -13,5 +13,5 @@ struct TaskState {
   TaskState() = default;
 
   std::mutex tasksMutex;
-  std::vector<std::unique_ptr<Task>> tasks;
+  std::vector<RegisteredTask> tasks;
 };
