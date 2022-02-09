@@ -4,7 +4,7 @@ project(CeresTask VERSION 1.0.0 LANGUAGES CXX)
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake)
 
 
-CPMAddPackage("gh:Javask/CeresLog@1.0.0-dev")
+CPMAddPackage("gh:Javask/CeresLog@1.0.0-alpha1")
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DCERESTASK_DEBUG)
