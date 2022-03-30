@@ -1,21 +1,42 @@
 #include "TestTask.h"
+#include <thread>
+#include <chrono>
+#include <utility>
 
 TestTask::TestTask() : Task() {}
 
-TestTask::TestTask(std::string name) : Task(name) {}
+TestTask::TestTask(const std::string& name) : Task(name) {}
 
-bool TestTask::run(TaskID id) {
-  auto lock = std::unique_lock<std::mutex>(taskMutex);
-  ran = true;
+
+bool TestTask::run(bool beforeHasFailed) {
+  auto lock = std::unique_lock<std::mutex>(callbackMutex);
+  ran.store(true);
+  if (callback) return callback(beforeHasFailed);
   return true;
 }
 
 void TestTask::reset() {
-  auto lock = std::unique_lock<std::mutex>(taskMutex);
-  ran = false;
+  ran.store(false);
+  failed.store(false);
 }
 
-bool TestTask::hasRan() {
-  auto lock = std::unique_lock<std::mutex>(taskMutex);
-  return ran;
+bool TestTask::hasRan() { return ran.load(); }
+
+void TestTask::setShouldFail() {
+  auto lock = std::unique_lock<std::mutex>(callbackMutex);
+  callback = [](bool) { return false; };
+}
+
+void TestTask::onFail() { failed.store(true); }
+
+bool TestTask::hasFailed() { return failed.load(); }
+
+void TestTask::setShouldFailIfBeforeFailed() {
+  auto lock = std::unique_lock<std::mutex>(callbackMutex);
+  callback = [](bool before) { return !before; };
+}
+
+void TestTask::setCustomRunFunction(std::function<bool( bool )> func) {
+  auto lock = std::unique_lock<std::mutex>(callbackMutex);
+  callback = std::move(func);
 }

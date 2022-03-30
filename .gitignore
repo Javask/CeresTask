@@ -2,6 +2,7 @@ out
 /.vs
 /bin
 /.clangd
+cmake-build-*
 compile_commands.json
 CMakeFiles
 Makefile
@@ -9,3 +10,4 @@ cmake_install.cmake
 CMakeCache.txt
 build
 .vscode
+.idea

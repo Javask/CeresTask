@@ -1,9 +1,9 @@
 #include "RandomString.h"
 #include <random>
-#include <algorithm>
+#include <cstring>
 
 
-auto generateRandomString(const std::size_t len) -> std::string {
+auto generateRandomString(size_t len) -> std::string {
   static constexpr auto chars =
       "0123456789"
       "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

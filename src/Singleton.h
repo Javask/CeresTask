@@ -5,13 +5,12 @@
 template <class T>
 class Destroyer {
  public:
-  Destroyer(T* d = 0);
+  explicit Destroyer(T* d = 0);
 
   ~Destroyer();
 
   void SetDoomed(T* d);
 
- private:
   // Prevent users from making copies of a
   // Destroyer to avoid double deletion:
   Destroyer(const Destroyer&) = delete;
@@ -44,16 +43,14 @@ class Singleton {
   friend class Destroyer<T>;
 
  protected:
-  Singleton(){};
-  virtual ~Singleton(){};
+  Singleton() = default;
+  virtual ~Singleton() = default;
   virtual bool Init();
 
-  static void Set(T* newInstance);
-  static void Unset();
 
  public:
   /**
-   *@brief Return current instance of Singleton or create if not existant
+   *@brief Return current instance of Singleton or create if not existent
    *@return nullptr of creation failed
    **/
   static T* Get();
@@ -76,21 +73,6 @@ std::mutex Singleton<T>::Lock_ = std::mutex();
 template <class T>
 inline bool Singleton<T>::Init() {
   return true;
-}
-
-template <class T>
-void Singleton<T>::Set(T* newInstance) {
-  std::unique_lock<std::mutex> Lock(Lock_);
-  Instance_ = newInstance;
-  Destroyer_.SetDoomed(Instance_);
-}
-
-template <class T>
-void Singleton<T>::Unset() {
-  std::unique_lock<std::mutex> Lock(Lock_);
-  if (!Instance_) delete Instance_;
-  Instance_ = nullptr;
-  Destroyer_.SetDoomed(nullptr);
 }
 
 template <typename T>

@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <vector>
 #include "TaskID.h"
 
@@ -13,7 +12,7 @@ class Task {
   /// </summary>
   /// <param name="runOnce">Whether or not the task should disable after running
   /// (default: false)</param>
-  Task(bool runOnce = false);
+  explicit Task(bool runOnce = false);
 
   /// <summary>
   /// Creates a Task
@@ -21,9 +20,7 @@ class Task {
   /// <param name="name">Name of the task, will appear in logs</param>
   /// <param name="runOnce">Whether or not the task should disable after running
   /// (default: false)</param>
-  Task(const std::string& name, bool runOnce = false);
-
-
+  explicit Task(std::string name, bool runOnce = false) ;
 
  public:
   virtual ~Task() = default;
@@ -31,17 +28,29 @@ class Task {
   /// Returns the name of the task
   /// </summary>
   /// <returns>Name of the Task</returns>
-  const std::string& getName() const;
+  [[nodiscard]] const std::string& getName() const;
 
   /// <summary>
   /// Main function implementing the behaviour of the Task
   /// </summary>
-  /// <param name="id">id with which the task is being ran</param>
-  /// <returns>Returns true after successfull execution, false on
+  /// <param name="beforeHasFailed">Whether or not one of the directly preceding tasks failed execution.</param>
+  /// <returns>Returns true after successful execution, false on
   /// failure</returns>
-  virtual bool run(TaskID id) = 0;
+  virtual bool run(bool beforeHasFailed) = 0;
+
+  /// <summary>
+  /// Executed on fail of execution
+  /// </summary>
+  virtual void onFail();
+
+  /// <summary>
+  /// Returns the id of the task, initialized at creation to be runtime unique
+  ///</summary>
+  ///< returns>Id of this task</returns>
+  [[nodiscard]] const TaskID& getID() const;
 
  private:
+  const TaskID id;
   const std::string name;
   const bool runOnce;
 };
