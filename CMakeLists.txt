@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.18)
 
 project(CeresTask VERSION 1.0.0 LANGUAGES CXX)
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake)
 
 CPMAddPackage(NAME CeresLog 
-              VERSION 1.0.0-alpha4
+              VERSION 1.0.0-alpha5
               GITHUB_REPOSITORY Javask/CeresLog
               OPTIONS
                 "CERESLOG_BUILD_TESTS OFF")
@@ -22,6 +22,10 @@ file(GLOB_RECURSE CERESTASK_SOURCE_FILES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST
 add_library(CeresTask STATIC ${CERESTASK_SOURCE_FILES})
 set_target_properties(CeresTask PROPERTIES CXX_STANDARD 20)
 target_link_libraries(CeresTask CeresLog::CeresLog)
+
+if(UNIX)
+    target_link_libraries(CeresTask pthread)
+endif()
 
 target_include_directories(CeresTask
     PUBLIC 
