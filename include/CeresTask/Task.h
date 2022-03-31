@@ -10,17 +10,13 @@ class Task {
   /// <summary>
   /// Creates a Task with a random name
   /// </summary>
-  /// <param name="runOnce">Whether or not the task should disable after running
-  /// (default: false)</param>
-  explicit Task(bool runOnce = false);
+  explicit Task();
 
   /// <summary>
   /// Creates a Task
   /// </summary>
   /// <param name="name">Name of the task, will appear in logs</param>
-  /// <param name="runOnce">Whether or not the task should disable after running
-  /// (default: false)</param>
-  explicit Task(std::string name, bool runOnce = false) ;
+  explicit Task(std::string name) ;
 
  public:
   virtual ~Task() = default;
@@ -52,5 +48,4 @@ class Task {
  private:
   const TaskID id;
   const std::string name;
-  const bool runOnce;
 };

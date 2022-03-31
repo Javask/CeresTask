@@ -1,10 +1,10 @@
 #include "../include/CeresTask/Task.h"
 #include "RandomString.h"
 
-Task::Task(bool runOnce) : Task(generateRandomString(12), runOnce) {}
+Task::Task() : Task(generateRandomString(12)) {}
 
-Task::Task(std::string name, bool runOnce)
-    : name(std::move(name)), runOnce(runOnce) {}
+Task::Task(std::string name)
+    : name(std::move(name)) {}
 
 const std::string& Task::getName() const { return name; }
 
