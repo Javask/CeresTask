@@ -123,20 +123,20 @@ TEST_CASE("Wait on works correctly", "[tasking][usage]") {
   auto id5 = testTask5->getID();
   auto id6 = testTask6->getID();
 
-  auto stage1Func = [&stage1,&stage2,&stage3](bool before) {
+  auto stage1Func = [&stage1,&stage2,&stage3](bool) {
     stage1++;
     return stage2 == 0 && stage3 == 0;
   };
   auto stage2Func = [&stage1, &stage2, &stage3](bool before) {
     stage2++;
-    return stage1 == 1 && stage3 == 0;
+    return (stage1 == 1 && stage3 == 0) || before;
   };
   auto stage3Func = [&stage1, &stage2, &stage3](bool before) {
     stage3++;
-    return stage1 == 1 && stage2 == 2;
+    return (stage1 == 1 && stage2 == 2) || before;
   };
   auto stage4Func = [&stage1, &stage2, &stage3](bool before) {
-    return stage1 == 1 && stage2 == 2 && stage3 == 2;
+    return (stage1 == 1 && stage2 == 2 && stage3 == 2) || before;
   };
 
   /* Dependency Graph:
