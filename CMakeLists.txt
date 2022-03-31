@@ -8,6 +8,11 @@ CPMAddPackage(NAME CeresLog
               GITHUB_REPOSITORY Javask/CeresLog
               OPTIONS
                 "CERESLOG_BUILD_TESTS OFF")
+
+
+set(CMAKE_CXX_FLAGS_ASAN "-fsanitize=address -fno-omit-frame-pointer -g -Wall")
+set(CMAKE_EXE_LINKER_FLAGS_ASAN  "-fsanitize=address -g -Wall")
+
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DCERESTASK_DEBUG)
 endif()
@@ -36,6 +41,10 @@ target_include_directories(CeresTask
 )
 
 add_library(CeresTask::CeresTask ALIAS CeresTask)
-add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/test/")
+
+option(CERESTASK_BUILD_TESTS "Build CeresTask Tests" ON)
+if(CERESTASK_BUILD_TESTS)
+  add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/test/")
+endif()
 
 
