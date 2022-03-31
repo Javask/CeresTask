@@ -2,31 +2,31 @@
 Simple library so I stop rewriting my tasking code
 <hr>
 
-## Notes
 
-### TaskID 
-intmax_t wrapper that cannot be set by hand </br>
-Will create sequential IDs starting at zero each run </br>
-ID exhaustion can occur, this needs to be fixed! </br>
-### Tasks
-Tasks are created by extending the Task virtual class.</br>
-Tasks need to define a run function, which can return either true or false to indicate failure. </br>
-Tasks can be named, if not they will have a random name for logging purposes. </br>
-Each task has an id which is runtime unique to them.</br>
-Tasks are arranged by grouping them in Task Groups
-### Task Groups
-Task Groups define a dependency graph between the tasks contained.</br>
-Task Groups can be executed by submitting them to an executor</br>
-A shared future to each task's result will be exposed </br>
-A shared future to the task groups result will be exposed, representing a logical-and of all task results </br>
+## CMake options
+To disable automatic build of test executable use CMake option CERESTASK_BUILD_TESTS.
 
-### Executors
-An executor executes as many tasks of a given task group simultaneously as possible. </br>
-Task groups will be executed sequentially if submitted to the same executor. </br>
-The thread count of the executor can be defined on creation. </br>
-On destruction the executor waits until all threads finish their current task and joins them. </br>
-If a single task is submitted it will count as a task group containing only it.</br>
+##Usage
 
-### Task System
-The Task system defines a static interface to the library</br>
-This interface exposes one static executor to which task groups can be submitted. </br>
+###Task
+To create a task inherit from the Task-class. 
+The custom task has to define a run function. 
+The run function has to accept a boolean and return a boolean. 
+The return value signifies if the task failed in execution. 
+A value of false means failure, true success.
+The boolean argument accepted by the function signifies 
+whether or not a direct predecessor of this task failed execution.
+A value of true meaning at least one predecessor failed.
+
+###TaskGroup
+To organize tasks they have to be added to a TaskGroup, which contains the dependencies between tasks.
+A dependency can be added via addWaitOnEdge.
+Such a group can then be submitted to an Executor.
+
+###Executor
+The executor contains the threads that execute the tasks.
+It will try to execute as many tasks in parallel as possible, as long as the dependencies allow it.
+The number of threads the Executor should spawn can be set in the constructor.
+On destruction it will join all created threads, waiting on task completion for all of them.
+
+
