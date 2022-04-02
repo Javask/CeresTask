@@ -3,9 +3,12 @@ cmake_minimum_required(VERSION 3.18)
 project(CeresTask VERSION 1.0.0 LANGUAGES CXX)
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake)
 
+set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
+
 CPMAddPackage(NAME CeresLog 
-              VERSION 1.0.0-alpha5
               GITHUB_REPOSITORY Javask/CeresLog
+              VERSION 1.0.0-alpha6
               OPTIONS
                 "CERESLOG_BUILD_TESTS OFF")
 
