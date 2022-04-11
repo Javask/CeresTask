@@ -10,8 +10,8 @@ file(GLOB_RECURSE CERESTASK_TEST_FILES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_D
 
 
 add_executable(CeresTaskTests ${CERESTASK_TEST_FILES})
-target_link_libraries(CeresTaskTests Catch2::Catch2 CeresTask::CeresTask)
-add_dependencies(CeresTaskTests Catch2::Catch2 CeresTask::CeresTask)
+target_link_libraries(CeresTaskTests $<TARGET_NAME_IF_EXISTS:Catch2::Catch2> CeresTask::CeresTask)
+add_dependencies(CeresTaskTests CeresTask::CeresTask)
 set_target_properties(CeresTaskTests PROPERTIES CXX_STANDARD 20 COMPILE_OPTIONS "${CERES_CXX_FLAGS}")
 
 

@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.18)
 
 project(CeresTask VERSION 1.0.0 LANGUAGES CXX)
+
+option(CERESTASK_BUILD_OWN_PACKAGES "Build all dependencies from scratch." OFF)
+if(NOT CERESTASK_BUILD_OWN_PACKAGES)
+  set(CPM_USE_LOCAL_PACKAGES ON)
+else()
+  message(STATUS "Building CeresTask dependencies from scratch...")
+  set(CPM_USE_LOCAL_PACKAGES OFF)
+endif()
+
+
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake)
 
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
@@ -8,7 +18,7 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
 
 CPMAddPackage(NAME CeresLog 
               GITHUB_REPOSITORY Javask/CeresLog
-              VERSION 1.0.0-alpha6
+              GIT_TAG v1.0.0-alpha6
               OPTIONS
                 "CERESLOG_BUILD_TESTS OFF")
 
