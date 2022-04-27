@@ -64,6 +64,7 @@ add_library(CeresTask::CeresTask ALIAS CeresTask)
 
 option(CERESTASK_BUILD_TESTS "Build CeresTask Tests" ON)
 if(CERESTASK_BUILD_TESTS)
+  enable_testing()
   add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/test/")
 endif()
 
