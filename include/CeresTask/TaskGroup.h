@@ -8,6 +8,9 @@
 #include <cstdint>
 #include <optional>
 #include <shared_mutex>
+
+namespace CeresTask {
+
 /**
  * @brief Task group class representing a directed graph of tasks to be executed
  * Can be submitted to be asynchronously executed, respecting the constraints
@@ -124,3 +127,5 @@ class TaskGroup {
   void removeStartFromWaitOn(TaskID id);
   void removeEndFromWaitOn(TaskID id);
 };
+
+}  // namespace CeresTask

@@ -3,10 +3,11 @@
 #include <chrono>
 #include <utility>
 
+namespace CeresTask {
+
 TestTask::TestTask() : Task() {}
 
 TestTask::TestTask(const std::string& name) : Task(name) {}
-
 
 bool TestTask::run(bool beforeHasFailed) {
   auto lock = std::unique_lock<std::mutex>(callbackMutex);
@@ -36,7 +37,8 @@ void TestTask::setShouldFailIfBeforeFailed() {
   callback = [](bool before) { return !before; };
 }
 
-void TestTask::setCustomRunFunction(std::function<bool( bool )> func) {
+void TestTask::setCustomRunFunction(std::function<bool(bool)> func) {
   auto lock = std::unique_lock<std::mutex>(callbackMutex);
   callback = std::move(func);
 }
+}  // namespace CeresTask

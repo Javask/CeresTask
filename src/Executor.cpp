@@ -1,6 +1,8 @@
 #include "../include/CeresTask/Executor.h"
 #include <CeresLog/Logging.h>
 
+namespace CeresTask {
+
 Executor::Executor(size_t threadCount) {
   auto lock = std::unique_lock(threadsMutex);
   threads.reserve(threadCount);
@@ -85,7 +87,7 @@ void Executor::threadHandleHasExecuted(TaskID id, bool result) {
       if (registeredTasks.contains(afterId)) {
         registeredTasks[afterId].beforeThisNotYetExecuted.erase(id);
         if (!result) {
-          registeredTasks[afterId].oneBeforeHasFailed = true; 
+          registeredTasks[afterId].oneBeforeHasFailed = true;
         }
         if (registeredTasks[afterId].beforeThisNotYetExecuted.empty()) {
           setReady.insert(afterId);
@@ -94,7 +96,7 @@ void Executor::threadHandleHasExecuted(TaskID id, bool result) {
     }
   }
   setTasksReady(setReady);
-  { 
+  {
     auto promisesLock = std::unique_lock(promisesMutex);
     for (auto it = promises.begin(); it != promises.end(); it++) {
       if (it->waitingOn.contains(id)) {
@@ -120,8 +122,7 @@ std::shared_future<bool> Executor::submit(std::unique_ptr<Task> task) {
 
 std::map<TaskID, Executor::RegisteredTask> Executor::registerTaskGroup(
     std::unique_ptr<TaskGroup> group) {
-  auto outMap =
-      std::map<TaskID, RegisteredTask>();
+  auto outMap = std::map<TaskID, RegisteredTask>();
   for (auto& taskRef : group->tasks) {
     auto currID = taskRef->getID();
     auto regTask = RegisteredTask();
@@ -195,3 +196,5 @@ std::shared_future<bool> Executor::submit(std::unique_ptr<TaskGroup> group) {
   setTasksReady(startTasks);
   return future;
 }
+
+}  // namespace CeresTask

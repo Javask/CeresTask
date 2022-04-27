@@ -1,6 +1,8 @@
 #include "../include/CeresTask/TaskID.h"
 #include <catch2/catch.hpp>
 
+using namespace CeresTask;
+
 TEST_CASE("TaskID tests", "[tasking][taskid]") {
   auto id = TaskID();
   auto id2 = TaskID();

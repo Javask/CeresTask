@@ -5,6 +5,8 @@
 #include "../include/CeresTask/Task.h"
 #include "TestTask.h"
 
+using namespace CeresTask;
+
 TEST_CASE("Single task executes correctly", "[tasking][usage]") {
   auto exec = Executor(1);
   auto taskGroup = std::make_unique<TaskGroup>("simpleTasks");
@@ -123,7 +125,7 @@ TEST_CASE("Wait on works correctly", "[tasking][usage]") {
   auto id5 = testTask5->getID();
   auto id6 = testTask6->getID();
 
-  auto stage1Func = [&stage1,&stage2,&stage3](bool) {
+  auto stage1Func = [&stage1, &stage2, &stage3](bool) {
     stage1++;
     return stage2 == 0 && stage3 == 0;
   };
@@ -145,7 +147,7 @@ TEST_CASE("Wait on works correctly", "[tasking][usage]") {
      2   3    Stage2
      |\ /|
      | X |    ------
-     |/ \|    
+     |/ \|
      4   5    Stage3
       \ /     ------
        6      Stage4

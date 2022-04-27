@@ -3,6 +3,8 @@
 #include <atomic>
 #include <string>
 
+namespace CeresTask {
+
 /// <summary>
 /// Create a global TaskID type
 /// </summary>
@@ -45,3 +47,5 @@ class TaskID {
   static std::atomic<intmax_t> TaskIDCounter;
   static intmax_t getNewID();
 };
+
+}  // namespace CeresTask

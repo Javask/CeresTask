@@ -3,6 +3,8 @@
 #include "../include/CeresTask/TaskGroup.h"
 #include "RandomString.h"
 
+namespace CeresTask {
+
 TaskGroup::TaskGroup() : TaskGroup("TaskGroup_" + generateRandomString(8)) {}
 
 TaskGroup::TaskGroup(std::string name) : name(std::move(std::move(name))) {}
@@ -192,3 +194,5 @@ void TaskGroup::addWaitOnEdge(TaskID waitOnID, TaskID waitingID) {
 }
 
 const std::string& TaskGroup::getName() { return name; }
+
+}  // namespace CeresTask

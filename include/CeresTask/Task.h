@@ -2,6 +2,7 @@
 #include <vector>
 #include "TaskID.h"
 
+namespace CeresTask {
 /// <summary>
 /// Virtual class that should be inherited from to create an executable task
 /// </summary>
@@ -16,7 +17,7 @@ class Task {
   /// Creates a Task
   /// </summary>
   /// <param name="name">Name of the task, will appear in logs</param>
-  explicit Task(std::string name) ;
+  explicit Task(std::string name);
 
  public:
   virtual ~Task() = default;
@@ -29,9 +30,9 @@ class Task {
   /// <summary>
   /// Main function implementing the behaviour of the Task
   /// </summary>
-  /// <param name="beforeHasFailed">Whether or not one of the directly preceding tasks failed execution.</param>
-  /// <returns>Returns true after successful execution, false on
-  /// failure</returns>
+  /// <param name="beforeHasFailed">Whether or not one of the directly preceding
+  /// tasks failed execution.</param> <returns>Returns true after successful
+  /// execution, false on failure</returns>
   virtual bool run(bool beforeHasFailed) = 0;
 
   /// <summary>
@@ -49,3 +50,5 @@ class Task {
   const TaskID id;
   const std::string name;
 };
+
+}  // namespace CeresTask

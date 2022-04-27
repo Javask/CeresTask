@@ -8,8 +8,11 @@
 #include <condition_variable>
 #include <map>
 
+namespace CeresTask {
 /// <summary>
-/// Executor class representing multiple threads that will execute submitted Task Groups, will join all threads on destruction and wait for each thread to finish current task
+/// Executor class representing multiple threads that will execute submitted
+/// Task Groups, will join all threads on destruction and wait for each thread
+/// to finish current task
 /// </summary>
 class Executor {
  public:
@@ -64,7 +67,8 @@ class Executor {
 
   void threadMain(size_t id);
   std::optional<TaskID> threadGetTaskToRun();
-  std::pair<std::shared_ptr<Task>,bool> threadFetchTaskInfoByID(TaskID id);
+  std::pair<std::shared_ptr<Task>, bool> threadFetchTaskInfoByID(TaskID id);
   void setTasksReady(std::set<TaskID> tasks);
   void threadHandleHasExecuted(TaskID id, bool result);
 };
+}  // namespace CeresTask

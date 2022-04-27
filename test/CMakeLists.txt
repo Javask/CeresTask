@@ -15,4 +15,4 @@ add_dependencies(CeresTaskTests CeresTask::CeresTask)
 set_target_properties(CeresTaskTests PROPERTIES CXX_STANDARD 20 COMPILE_OPTIONS "${CERES_CXX_FLAGS}")
 
 
-add_test(CeresTaskTests ${EXECUTABLE_OUTPUT_PATH}/CeresLogTests)
+add_test(CeresTaskTests ${EXECUTABLE_OUTPUT_PATH}/CeresTaskTests)

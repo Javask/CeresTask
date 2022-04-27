@@ -2,6 +2,8 @@
 #include <catch2/catch.hpp>
 #include "TestTask.h"
 
+using namespace CeresTask;
+
 template <typename T>
 bool vectorContains(const std::vector<T>& vec, const T& obj) {
   for (auto& i : vec) {

@@ -5,6 +5,8 @@
 #include <atomic>
 #include <functional>
 
+namespace CeresTask {
+
 class TestTask : public Task {
  public:
   explicit TestTask();
@@ -26,5 +28,7 @@ class TestTask : public Task {
   std::atomic_bool failed = false;
 
   std::mutex callbackMutex;
-  std::function<bool (bool)> callback;
+  std::function<bool(bool)> callback;
 };
+
+}  // namespace CeresTask
