@@ -16,9 +16,16 @@ include(${CMAKE_CURRENT_LIST_DIR}/cmake/CPM.cmake)
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
 
+
+CPMAddPackage(NAME Utilities 
+              GITHUB_REPOSITORY Javask/Utilities
+              GIT_TAG v1.0.0-alpha5
+              OPTIONS
+                "UTILITIES_BUILD_TESTS OFF")
+
 CPMAddPackage(NAME CeresLog 
               GITHUB_REPOSITORY Javask/CeresLog
-              GIT_TAG v1.0.0-alpha8
+              GIT_TAG v1.0.0-alpha9
               OPTIONS
                 "CERESLOG_BUILD_TESTS OFF")
 
@@ -46,7 +53,7 @@ endif()
 file(GLOB_RECURSE CERESTASK_SOURCE_FILES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp")
 add_library(CeresTask STATIC ${CERESTASK_SOURCE_FILES})
 set_target_properties(CeresTask PROPERTIES CXX_STANDARD 20 COMPILE_OPTIONS "${CERES_CXX_FLAGS}")
-target_link_libraries(CeresTask CeresLog::CeresLog)
+target_link_libraries(CeresTask CeresLog::CeresLog Utilities::Utilities)
 
 if(UNIX)
     target_link_libraries(CeresTask pthread)

@@ -1,11 +1,12 @@
 #include <utility>
 
 #include "../include/CeresTask/TaskGroup.h"
-#include "RandomString.h"
+#include <Utilities/StringUtils.h>
 
 namespace CeresTask {
 
-TaskGroup::TaskGroup() : TaskGroup("TaskGroup_" + generateRandomString(8)) {}
+TaskGroup::TaskGroup()
+    : TaskGroup("TaskGroup_" + Utilities::generateRandomString(8)) {}
 
 TaskGroup::TaskGroup(std::string name) : name(std::move(std::move(name))) {}
 

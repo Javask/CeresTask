@@ -1,8 +1,8 @@
 #include "../include/CeresTask/Task.h"
-#include "RandomString.h"
+#include <Utilities/StringUtils.h>
 
 namespace CeresTask {
-Task::Task() : Task(generateRandomString(12)) {}
+Task::Task() : Task(Utilities::generateRandomString(12)) {}
 
 Task::Task(std::string name) : name(std::move(name)) {}
 
