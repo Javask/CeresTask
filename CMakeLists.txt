@@ -51,7 +51,7 @@ elseif(WIN32)
 endif()
 
 file(GLOB_RECURSE CERESTASK_SOURCE_FILES CONFIGURE_DEPENDS "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp")
-add_library(CeresTask STATIC ${CERESTASK_SOURCE_FILES})
+add_library(CeresTask OBJECT ${CERESTASK_SOURCE_FILES})
 set_target_properties(CeresTask PROPERTIES CXX_STANDARD 20 COMPILE_OPTIONS "${CERES_CXX_FLAGS}")
 target_link_libraries(CeresTask CeresLog::CeresLog Utilities::Utilities)
 

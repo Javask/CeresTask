@@ -1,5 +1,5 @@
 #include "../include/CeresTask/TaskGroup.h"
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include "TestTask.h"
 
 using namespace CeresTask;
