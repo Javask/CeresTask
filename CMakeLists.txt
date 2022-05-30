@@ -19,13 +19,13 @@ set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}")
 
 CPMAddPackage(NAME Utilities 
               GITHUB_REPOSITORY Javask/Utilities
-              GIT_TAG v1.0.0-alpha5
+              GIT_TAG v1.0.0-alpha6
               OPTIONS
                 "UTILITIES_BUILD_TESTS OFF")
 
 CPMAddPackage(NAME CeresLog 
               GITHUB_REPOSITORY Javask/CeresLog
-              GIT_TAG v1.0.0-alpha9
+              GIT_TAG v1.0.0-alpha10
               OPTIONS
                 "CERESLOG_BUILD_TESTS OFF")
 
